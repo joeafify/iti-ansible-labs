@@ -1,0 +1,19 @@
+- name: Update and Install Nginx
+  hosts: all
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+      tags:
+        - update
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+      tags:
+        - install
+    - name: Trust me ... It will run
+      debug:
+        msg: "It is running"
+      tags:
+        - always

@@ -1,0 +1,19 @@
+- name: Configure nginx on host1
+  hosts: host1 
+  become: yes  
+  tasks:
+    - name: Update package cache
+      apt:
+        update_cache: yes
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+    - name: Copy index.html to host
+      copy:
+        src: ./index.html
+        dest: /usr/share/nginx/html/index.html
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

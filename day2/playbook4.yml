@@ -1,0 +1,10 @@
+- name: Install a Package
+  hosts: all
+  vars:
+    package_name: nginx
+    package_version: latest
+  tasks:
+    - name: Install a package
+      apt:
+        name: "{{ package_name }}"
+        state: "{{ package_version }}"
