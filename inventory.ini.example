@@ -1,0 +1,1 @@
+<host_name> ansible_host=<host_ip_address> ansible_user=<host_user>

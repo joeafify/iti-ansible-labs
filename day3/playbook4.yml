@@ -1,0 +1,25 @@
+- name: Install Package and Manage Files
+  hosts: all
+  vars:
+    package_name: nginx
+    files:
+      - index.html
+      - style.css
+      - app.js
+  tasks:
+    - name: Install Package
+      apt:
+        name: "{{ package_name }}"
+        state: present
+      notify: copy_files
+  handlers:
+    - name: copy_files
+      copy:
+        src: "{{ item }}"
+        dest: /usr/share/nginx/html/
+      loop: "{{ files}}"
+      notify: restart_svc
+    - name: restart_svc
+      service:
+        name: "{{ package_name }}"
+        state: restarted

@@ -1,0 +1,16 @@
+- name: Check and Restart Service
+  hosts: all
+  tasks:
+    - name: Perform Installation
+      apt: 
+         name: nginx
+         state: latest
+      register: installation_result
+    - name: Debug Install Result
+      debug:
+        var: installation_result
+    - name: Restart Service if Installation Changed or Succeeded
+      service:
+        name: nginx
+        state: restarted
+      when: installation_result.changed == true and installation_result.rc == 0

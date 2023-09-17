@@ -1,0 +1,24 @@
+- name: Install Web Server and Restart Service
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install web server on ubuntu
+      apt:
+        name: nginx
+        state: latest
+      when: ansible_os_family == 'Debian'
+    - name: Restart nginx service on ubuntu
+      service:
+        name: nginx
+        state: restarted
+      when: ansible_os_family == 'Debian'
+    - name: Install web server on centos
+      yum:
+        name: httpd
+        state: latest
+      when: ansible_os_family == 'RedHat'
+    - name: Restart nginx service on centos
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_os_family == 'RedHat'
